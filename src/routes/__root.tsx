@@ -19,8 +19,9 @@ export const Route = createRootRoute({
       { title: 'LinkFlare | Open Source LinkInBio Platform' },
     ],
     links: [
-      // High priority stylesheet with fetchPriority hint
-      { rel: 'stylesheet', href: appCss, fetchPriority: 'high' },
+      // Preload stylesheet to reduce render blocking
+      { rel: 'preload', href: appCss, as: 'style' },
+      { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
     ],
   }),

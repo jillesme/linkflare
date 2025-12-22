@@ -45,7 +45,7 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="px-4 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
@@ -86,6 +86,7 @@ function HomePage() {
               alt="LinkFlare demo showing the dashboard interface"
               width={640}
               height={360}
+              fetchPriority="high"
               className="w-full rounded-xl border border-border shadow-lg"
             />
           </div>
@@ -124,7 +125,7 @@ function HomePage() {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   )
 }
 
