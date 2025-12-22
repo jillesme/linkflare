@@ -23,7 +23,7 @@ export const Route = createFileRoute('/')({
           'Create your personal link-in-bio page with LinkFlare. Open source, self-hostable, and built on Cloudflare Workers.',
       },
       { property: 'og:url', content: 'https://linkflare.app/' },
-      { property: 'og:image', content: 'https://linkflare.app/og-image.png' },
+      { property: 'og:image', content: 'https://linkflare.app/og-image.jpg' },
       { property: 'og:type', content: 'website' },
       // Twitter Card
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -36,7 +36,7 @@ export const Route = createFileRoute('/')({
         content:
           'Create your personal link-in-bio page with LinkFlare. Open source, self-hostable, and built on Cloudflare Workers.',
       },
-      { name: 'twitter:image', content: 'https://linkflare.app/og-image.png' },
+      { name: 'twitter:image', content: 'https://linkflare.app/og-image.jpg' },
     ],
     links: [{ rel: 'canonical', href: 'https://linkflare.app/' }],
   }),
