@@ -50,7 +50,7 @@ function HomePage() {
       <section className="px-4 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-6">
-            LinkFlare | Open Source LinkInBio Platform Built on Cloudflare Workers
+            Open Source LinkInBio Platform Built on Cloudflare Workers
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
             Your personal link page, your way. Clone and self-host, or sign up for our hosted
