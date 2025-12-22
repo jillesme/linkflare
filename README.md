@@ -2,11 +2,13 @@
 
 A link-in-bio application built with [TanStack Start](https://tanstack.com/start) on [Cloudflare Workers](https://developers.cloudflare.com/workers/).
 
+![LinkFlare Screenshot](public/screenshot.png)
+
 ## Tech Stack
 
-- **Framework**: [TanStack Start](https://tanstack.com/start) (React meta-framework)
+- **Framework**: [TanStack Start](https://tanstack.com/start)
 - **Runtime**: [Cloudflare Workers](https://developers.cloudflare.com/workers/)
-- **Database**: [Cloudflare D1](https://developers.cloudflare.com/d1/) (SQLite)
+- **Database**: [Cloudflare D1](https://developers.cloudflare.com/d1/) (SQLite-like)
 - **ORM**: [Drizzle ORM](https://orm.drizzle.team/)
 - **Authentication**: [BetterAuth](https://www.better-auth.com/)
 - **Bot Protection**: [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
@@ -14,7 +16,7 @@ A link-in-bio application built with [TanStack Start](https://tanstack.com/start
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) 20+
-- [pnpm](https://pnpm.io/)
+- [pnpm](https://pnpm.io/) (npm works too)
 - [Cloudflare account](https://dash.cloudflare.com/sign-up)
 
 ## Local Development
@@ -22,7 +24,7 @@ A link-in-bio application built with [TanStack Start](https://tanstack.com/start
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/jillesme/linkflare
    cd linkflare
    ```
 
@@ -42,7 +44,7 @@ A link-in-bio application built with [TanStack Start](https://tanstack.com/start
 
    ```bash
    BETTER_AUTH_SECRET=your-secret-key-here-min-32-chars
-   BETTER_AUTH_URL=http://localhost:5173
+   BETTER_AUTH_URL=http://localhost:3000
 
    # Test keys from Cloudflare - always pass validation
    VITE_TURNSTILE_SITE_KEY=1x00000000000000000000AA
@@ -55,7 +57,7 @@ A link-in-bio application built with [TanStack Start](https://tanstack.com/start
    pnpm dev
    ```
 
-   The app will be available at `http://localhost:5173`. Local development uses a local SQLite database automatically managed by Wrangler.
+   The app will be available at `http://localhost:3000`. Local development uses a local SQLite database automatically managed by Wrangler.
 
 ## Cloudflare Setup
 
@@ -74,11 +76,12 @@ This opens a browser window to authenticate with your Cloudflare account.
 Create a database for each environment:
 
 ```bash
-# Development database
+# Development database (optional!)
 npx wrangler d1 create linkflare-development
 
 # Production database
-npx wrangler d1 create linkflare-production
+$ npx wrangler d1 create linkflare-production
+$ npx wrangler d1 create linkflare-production --remote
 ```
 
 Each command outputs a `database_id`. Update `wrangler.jsonc` with your new database IDs:
@@ -127,10 +130,6 @@ Replace `linkflare.app` with your domain in `wrangler.jsonc`:
           "pattern": "your-domain.com",
           "custom_domain": true
         },
-        {
-          "pattern": "www.your-domain.com",
-          "custom_domain": true
-        }
       ]
     }
   }
@@ -190,10 +189,11 @@ Each command prompts you to enter the secret value.
 Apply migrations to your remote databases:
 
 ```bash
-# Development
+# Development (optional)
 npx wrangler d1 migrations apply linkflare-development -e development --remote
 
 # Production
+npx wrangler d1 migrations apply linkflare-production -e production 
 npx wrangler d1 migrations apply linkflare-production -e production --remote
 ```
 
