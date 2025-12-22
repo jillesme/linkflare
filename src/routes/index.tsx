@@ -79,11 +79,15 @@ function HomePage() {
             </Button>
           </div>
 
-          {/* Demo Placeholder */}
+          {/* Demo */}
           <div className="relative max-w-2xl mx-auto">
-            <div className="aspect-video rounded-xl border-2 border-dashed border-border bg-muted/30 flex items-center justify-center">
-              <p className="text-muted-foreground">Demo coming soon</p>
-            </div>
+            <img
+              src="/demo.webp"
+              alt="LinkFlare demo showing the dashboard interface"
+              width={640}
+              height={360}
+              className="w-full rounded-xl border border-border shadow-lg"
+            />
           </div>
         </div>
       </section>
