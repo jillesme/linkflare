@@ -96,25 +96,25 @@ function HomePage() {
             <TechLogo
               name="Cloudflare Workers"
               description="Edge computing for global low-latency"
-              src="/cloudflare-logo.jpeg"
+              src="/cloudflare-logo.webp"
               href="https://workers.cloudflare.com"
             />
             <TechLogo
               name="TanStack Start"
               description="Full-stack React framework with SSR"
-              src="/tanstack-logo.png"
+              src="/tanstack-logo.webp"
               href="https://tanstack.com/start"
             />
             <TechLogo
               name="Drizzle"
               description="Type-safe ORM for TypeScript"
-              src="/drizzle-logo.png"
+              src="/drizzle-logo.webp"
               href="https://orm.drizzle.team"
             />
             <TechLogo
               name="BetterAuth"
               description="Modern authentication library"
-              src="/better-auth-logo.png"
+              src="/better-auth-logo.webp"
               href="https://www.better-auth.com"
             />
           </div>
@@ -143,7 +143,7 @@ function TechLogo({
       className="flex flex-col items-center gap-2 group"
     >
       <div className="size-12 flex items-center justify-center">
-        <img src={src} alt={name} className="size-10 object-contain" />
+        <img src={src} alt={name} width={40} height={40} className="size-10 object-contain" />
       </div>
       <div className="text-center">
         <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
