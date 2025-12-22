@@ -4,9 +4,9 @@ import { ChevronUp, ChevronDown, Pencil, Trash2, Plus, ExternalLink, Eye } from 
 import { getUserLinks, deleteLink, reorderLink, updateLink } from '@/lib/server-fns/links'
 import { Button } from '@/components/ui/button'
 import { RouteError } from '@/components/ui/route-error'
-import { useAuthentication } from '@/hooks/use-authentication'
+import { Route as AuthenticatedRoute } from '@/routes/_authenticated'
 
-export const Route = createFileRoute('/dashboard/')({
+export const Route = createFileRoute('/_authenticated/dashboard/')({
   loader: () => getUserLinks(),
   component: DashboardIndex,
   errorComponent: ({ error }) => (
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/dashboard/')({
 
 function DashboardIndex() {
   const links = Route.useLoaderData()
-  const { session } = useAuthentication()
+  const { session } = AuthenticatedRoute.useRouteContext()
   const username = session?.user?.username
 
   return (

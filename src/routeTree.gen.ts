@@ -9,28 +9,28 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthenticationRouteImport } from './routes/authentication'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as UsernameRouteImport } from './routes/$username'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthenticationIndexRouteImport } from './routes/authentication/index'
 import { Route as GoLinkIdRouteImport } from './routes/go.$linkId'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as AuthenticationSignUpRouteImport } from './routes/authentication/sign-up'
 import { Route as AuthenticationLoginRouteImport } from './routes/authentication/login'
-import { Route as DashboardLinksNewRouteImport } from './routes/dashboard/links.new'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as DashboardLinksLinkIdEditRouteImport } from './routes/dashboard/links.$linkId.edit'
+import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard/settings'
+import { Route as AuthenticatedDashboardLinksNewRouteImport } from './routes/_authenticated/dashboard/links.new'
+import { Route as AuthenticatedDashboardLinksLinkIdEditRouteImport } from './routes/_authenticated/dashboard/links.$linkId.edit'
 
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticationRoute = AuthenticationRouteImport.update({
   id: '/authentication',
   path: '/authentication',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UsernameRoute = UsernameRouteImport.update({
@@ -43,11 +43,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardRoute,
-} as any)
 const AuthenticationIndexRoute = AuthenticationIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -57,11 +52,6 @@ const GoLinkIdRoute = GoLinkIdRouteImport.update({
   id: '/go/$linkId',
   path: '/go/$linkId',
   getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => DashboardRoute,
 } as any)
 const AuthenticationSignUpRoute = AuthenticationSignUpRouteImport.update({
   id: '/sign-up',
@@ -73,66 +63,85 @@ const AuthenticationLoginRoute = AuthenticationLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthenticationRoute,
 } as any)
-const DashboardLinksNewRoute = DashboardLinksNewRouteImport.update({
-  id: '/links/new',
-  path: '/links/new',
-  getParentRoute: () => DashboardRoute,
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardLinksLinkIdEditRoute =
-  DashboardLinksLinkIdEditRouteImport.update({
+const AuthenticatedDashboardSettingsRoute =
+  AuthenticatedDashboardSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardLinksNewRoute =
+  AuthenticatedDashboardLinksNewRouteImport.update({
+    id: '/links/new',
+    path: '/links/new',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardLinksLinkIdEditRoute =
+  AuthenticatedDashboardLinksLinkIdEditRouteImport.update({
     id: '/links/$linkId/edit',
     path: '/links/$linkId/edit',
-    getParentRoute: () => DashboardRoute,
+    getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$username': typeof UsernameRoute
   '/authentication': typeof AuthenticationRouteWithChildren
-  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/authentication/login': typeof AuthenticationLoginRoute
   '/authentication/sign-up': typeof AuthenticationSignUpRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
   '/go/$linkId': typeof GoLinkIdRoute
   '/authentication/': typeof AuthenticationIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/dashboard/links/new': typeof DashboardLinksNewRoute
-  '/dashboard/links/$linkId/edit': typeof DashboardLinksLinkIdEditRoute
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/dashboard/links/new': typeof AuthenticatedDashboardLinksNewRoute
+  '/dashboard/links/$linkId/edit': typeof AuthenticatedDashboardLinksLinkIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$username': typeof UsernameRoute
   '/authentication/login': typeof AuthenticationLoginRoute
   '/authentication/sign-up': typeof AuthenticationSignUpRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
   '/go/$linkId': typeof GoLinkIdRoute
   '/authentication': typeof AuthenticationIndexRoute
-  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/dashboard/links/new': typeof DashboardLinksNewRoute
-  '/dashboard/links/$linkId/edit': typeof DashboardLinksLinkIdEditRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/dashboard/links/new': typeof AuthenticatedDashboardLinksNewRoute
+  '/dashboard/links/$linkId/edit': typeof AuthenticatedDashboardLinksLinkIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$username': typeof UsernameRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/authentication': typeof AuthenticationRouteWithChildren
-  '/dashboard': typeof DashboardRouteWithChildren
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/authentication/login': typeof AuthenticationLoginRoute
   '/authentication/sign-up': typeof AuthenticationSignUpRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
   '/go/$linkId': typeof GoLinkIdRoute
   '/authentication/': typeof AuthenticationIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/dashboard/links/new': typeof DashboardLinksNewRoute
-  '/dashboard/links/$linkId/edit': typeof DashboardLinksLinkIdEditRoute
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/dashboard/links/new': typeof AuthenticatedDashboardLinksNewRoute
+  '/_authenticated/dashboard/links/$linkId/edit': typeof AuthenticatedDashboardLinksLinkIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -143,11 +152,11 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/authentication/login'
     | '/authentication/sign-up'
-    | '/dashboard/settings'
     | '/go/$linkId'
     | '/authentication/'
-    | '/dashboard/'
+    | '/dashboard/settings'
     | '/api/auth/$'
+    | '/dashboard/'
     | '/dashboard/links/new'
     | '/dashboard/links/$linkId/edit'
   fileRoutesByTo: FileRoutesByTo
@@ -156,53 +165,54 @@ export interface FileRouteTypes {
     | '/$username'
     | '/authentication/login'
     | '/authentication/sign-up'
-    | '/dashboard/settings'
     | '/go/$linkId'
     | '/authentication'
-    | '/dashboard'
+    | '/dashboard/settings'
     | '/api/auth/$'
+    | '/dashboard'
     | '/dashboard/links/new'
     | '/dashboard/links/$linkId/edit'
   id:
     | '__root__'
     | '/'
     | '/$username'
+    | '/_authenticated'
     | '/authentication'
-    | '/dashboard'
+    | '/_authenticated/dashboard'
     | '/authentication/login'
     | '/authentication/sign-up'
-    | '/dashboard/settings'
     | '/go/$linkId'
     | '/authentication/'
-    | '/dashboard/'
+    | '/_authenticated/dashboard/settings'
     | '/api/auth/$'
-    | '/dashboard/links/new'
-    | '/dashboard/links/$linkId/edit'
+    | '/_authenticated/dashboard/'
+    | '/_authenticated/dashboard/links/new'
+    | '/_authenticated/dashboard/links/$linkId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   UsernameRoute: typeof UsernameRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthenticationRoute: typeof AuthenticationRouteWithChildren
-  DashboardRoute: typeof DashboardRouteWithChildren
   GoLinkIdRoute: typeof GoLinkIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/authentication': {
       id: '/authentication'
       path: '/authentication'
       fullPath: '/authentication'
       preLoaderRoute: typeof AuthenticationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$username': {
@@ -219,13 +229,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof DashboardRoute
-    }
     '/authentication/': {
       id: '/authentication/'
       path: '/'
@@ -239,13 +242,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/go/$linkId'
       preLoaderRoute: typeof GoLinkIdRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRoute
     }
     '/authentication/sign-up': {
       id: '/authentication/sign-up'
@@ -261,12 +257,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticationLoginRouteImport
       parentRoute: typeof AuthenticationRoute
     }
-    '/dashboard/links/new': {
-      id: '/dashboard/links/new'
-      path: '/links/new'
-      fullPath: '/dashboard/links/new'
-      preLoaderRoute: typeof DashboardLinksNewRouteImport
-      parentRoute: typeof DashboardRoute
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -275,15 +278,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/links/$linkId/edit': {
-      id: '/dashboard/links/$linkId/edit'
+    '/_authenticated/dashboard/settings': {
+      id: '/_authenticated/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof AuthenticatedDashboardSettingsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/links/new': {
+      id: '/_authenticated/dashboard/links/new'
+      path: '/links/new'
+      fullPath: '/dashboard/links/new'
+      preLoaderRoute: typeof AuthenticatedDashboardLinksNewRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/links/$linkId/edit': {
+      id: '/_authenticated/dashboard/links/$linkId/edit'
       path: '/links/$linkId/edit'
       fullPath: '/dashboard/links/$linkId/edit'
-      preLoaderRoute: typeof DashboardLinksLinkIdEditRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof AuthenticatedDashboardLinksLinkIdEditRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
   }
 }
+
+interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedDashboardLinksNewRoute: typeof AuthenticatedDashboardLinksNewRoute
+  AuthenticatedDashboardLinksLinkIdEditRoute: typeof AuthenticatedDashboardLinksLinkIdEditRoute
+}
+
+const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
+  {
+    AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
+    AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+    AuthenticatedDashboardLinksNewRoute: AuthenticatedDashboardLinksNewRoute,
+    AuthenticatedDashboardLinksLinkIdEditRoute:
+      AuthenticatedDashboardLinksLinkIdEditRoute,
+  }
+
+const AuthenticatedDashboardRouteWithChildren =
+  AuthenticatedDashboardRoute._addFileChildren(
+    AuthenticatedDashboardRouteChildren,
+  )
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
 
 interface AuthenticationRouteChildren {
   AuthenticationLoginRoute: typeof AuthenticationLoginRoute
@@ -301,29 +351,11 @@ const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
   AuthenticationRouteChildren,
 )
 
-interface DashboardRouteChildren {
-  DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardLinksNewRoute: typeof DashboardLinksNewRoute
-  DashboardLinksLinkIdEditRoute: typeof DashboardLinksLinkIdEditRoute
-}
-
-const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
-  DashboardLinksNewRoute: DashboardLinksNewRoute,
-  DashboardLinksLinkIdEditRoute: DashboardLinksLinkIdEditRoute,
-}
-
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   UsernameRoute: UsernameRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
-  DashboardRoute: DashboardRouteWithChildren,
   GoLinkIdRoute: GoLinkIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }

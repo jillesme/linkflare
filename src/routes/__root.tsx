@@ -2,37 +2,27 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  createRootRouteWithContext,
+  createRootRoute,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-import { getCurrentSession } from '@/lib/server-fns/authentication'
-import { type Session } from '@/lib/auth'
 
 import Header from '@/components/Header'
 
 import appCss from '@/styles.css?url'
 
-interface CustomRouterContext {
-  session: Session | null
-}
-
-export const Route = createRootRouteWithContext<CustomRouterContext>()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'LinkFlare - Link-in-bio for developers' },
+      { title: 'LinkFlare | Open Source LinkInBio Platform' },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
     ],
   }),
-  beforeLoad: async () => {
-    const session = await getCurrentSession()
-    return { session }
-  },
   component: RootComponent,
 })
 

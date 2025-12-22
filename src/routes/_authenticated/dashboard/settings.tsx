@@ -2,7 +2,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { authClient } from '@/lib/auth-client'
-import { useAuthentication } from '@/hooks/use-authentication'
+import { Route as AuthenticatedRoute } from '@/routes/_authenticated'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { Input } from '@/components/ui/input'
@@ -14,13 +14,13 @@ import {
   FieldError,
 } from '@/components/ui/field'
 
-export const Route = createFileRoute('/dashboard/settings')({
+export const Route = createFileRoute('/_authenticated/dashboard/settings')({
   component: SettingsPage,
 })
 
 function SettingsPage() {
   const router = useRouter()
-  const { session } = useAuthentication()
+  const { session } = AuthenticatedRoute.useRouteContext()
   const currentUsername = session?.user?.username
 
   const [username, setUsername] = useState(currentUsername ?? '')

@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Field, FieldLabel, FieldError } from '@/components/ui/field'
 import { RouteError } from '@/components/ui/route-error'
 
-export const Route = createFileRoute('/dashboard/links/$linkId/edit')({
+export const Route = createFileRoute('/_authenticated/dashboard/links/$linkId/edit')({
   loader: ({ params }) => getLinkById({ data: params.linkId }),
   component: EditLinkPage,
   errorComponent: ({ error }) => (

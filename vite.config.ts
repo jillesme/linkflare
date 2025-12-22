@@ -15,7 +15,17 @@ const config = defineConfig({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      sitemap: {
+        host: 'https://linkflare.app',
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        // Disable auto-discovery so only explicitly listed routes are prerendered
+        autoStaticPathsDiscovery: false,
+      },
+    }),
     viteReact(),
   ],
 })
