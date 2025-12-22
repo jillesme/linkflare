@@ -60,7 +60,7 @@ function LoginPage() {
       setError(signInError.message ?? 'An error occurred during login')
       setLoading(false)
     } else {
-      navigate({ to: '/' })
+      navigate({ to: '/dashboard' })
     }
   }
 
