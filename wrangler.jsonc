@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "linkflare",
-	"compatibility_date": "2025-09-02",
+	"compatibility_date": "2026-01-12",
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
